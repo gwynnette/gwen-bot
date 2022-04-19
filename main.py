@@ -24,6 +24,7 @@ class RonhorBot:
 
     try:
         bootup()
-        print("Boot sequence successful. Bot will be online in a few moments.")
+        print("Boot sequence successful. Bot will be online in a few moments.") # this does not work for now.
     except Exception as error:
-        print(error)
+        print(error
+              
