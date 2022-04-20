@@ -1,30 +1,42 @@
 
+# dependencies
 import discord
 import dotenv
 import os
 import sys; sys.dont_write_bytecode = True
+import traceback
 from discord.ext import commands
 from dotenv import load_dotenv
 
-class RonhorBot:
+# global variables
+bot_secrets = load_dotenv('./config/secrets.env')
+bot_prefixes = ['.r ', '!r ']
+RonhorBot = commands.Bot(command_prefix = bot_prefixes)
 
-    def bootup():
+# terminal notifications
+@RonhorBot.event
+async def on_ready():
+    print("Bot is now online.")
 
-        bot_config = load_dotenv('config/preferences.env')
-        bot_prefixes = os.getenv('bot_prefixes')
-        RonhorBot = commands.Bot(command_prefix = bot_prefixes)
+class __init__:
+    
+    # verify bot's secrets
+    def verification():
 
+        print("Verifiying bot credentials. This will only take a moment.")
         cached_key = os.getenv('cached_key')
         active_key = os.getenv('active_key')
-
-        if active_key != cached_key:
-            print("Boot sequence failed. Error code: HARLEYLEO")
-        else:
+        
+        if active_key == cached_key:
+            print("Credentials verified. Bot will be online shortly.") # if results are true: bot will log in to discord
             RonhorBot.run(active_key)
+            
+        elif active_key != cached_key:
+            print("Credentials not verified. Error code: HARLEYLEO") # if results are false: terminal throws exception
 
     try:
-        bootup()
-        print("Boot sequence successful. Bot will be online in a few moments.") # this does not work for now.
+        verification()
+
     except Exception as error:
-        print(error
-              
+        traceback.print_exc()
+        
